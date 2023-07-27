@@ -1,24 +1,33 @@
-import logo from './logo.svg';
 import './App.css';
+import ChatRoom from './components/ChatRoom';
+import Login from './components/Login';
+import { Routes, Route } from 'react-router-dom';
+import AddRoomModal from './components/Modals/AddRoomModal';
+import AuthProvider from './components/Context/AthProvider'
+import AppProvider from './components/Context/AppProvider';
+import Products from './components/Products/Products';
+import AdminProducts from './components/ChatRoom/AdminProducts';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <AuthProvider>
+        <AppProvider>
+          <Routes>
+            <Route path="/home" element={<Products />} />
+            <Route path="/" element={<ChatRoom />} >
+              <Route path="/admin/products" element={<AdminProducts />} />
+              {/* <Route path="a" element={<AdminProducts />} /> */}
+            </Route>
+            <Route path="/login" element={<Login />} />
+          </Routes>
+          <AddRoomModal />
+        </AppProvider>
+      </AuthProvider>
+      <Routes>
+
+      </Routes>
+    </>
   );
 }
 
